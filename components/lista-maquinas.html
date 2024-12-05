@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Producción</title>
-    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="../estilos/style.css">
+
 </head>
 <body>
     <header-bar></header-bar>
     <nav-bar></nav-bar>
 
-    <mi-inicio></mi-inicio>
+    <machine-list api-endpoint="http://localhost:8000/maquinas"></machine-list>
+
     
     <footer-bar></footer-bar>
 
-    <script src="components/footer.js"></script>
-    <script src="components/header.js"></script>
-    <script src="components/nav-bar.js"></script>
-    <script src="components/inicio.js"></script>
+    <script src="footer.js"></script>
+    <script src="header.js"></script>
+    <script src="lista-maquinas.js"></script>
+    <script src="nav-bar.js"></script>
 </body>
 </html>

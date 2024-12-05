@@ -157,3 +157,101 @@ app.put("/proyectos/:id", (req, res) => {
         res.status(200).send("Proyecto actualizado correctamente");
     });
 });
+
+// Obtener todas las asignaciones
+// app.get("/asignaciones", (req, res) => {
+//     const query = `SELECT * FROM AsignacionesMaquinas`;
+
+//     db.query(query, (error, result) => {
+//         if (error) {
+//             res.status(500).send("Error al obtener las asignaciones");
+//             return;
+//         }
+//         res.status(200).json(result);
+//     });
+// });
+app.get('/asignaciones', (req, res) => {
+    const query = `
+        SELECT 
+            AsignacionesMaquinas.id_maquina, 
+            Maquinas.nombre AS nombre_maquina,
+            AsignacionesMaquinas.id_proyecto, 
+            Proyectos.nombre AS nombre_proyecto
+        FROM AsignacionesMaquinas
+        INNER JOIN Maquinas ON AsignacionesMaquinas.id_maquina = Maquinas.id_maquina
+        INNER JOIN Proyectos ON AsignacionesMaquinas.id_proyecto = Proyectos.id_proyecto
+    `;
+    
+    db.query(query, (error, result) => {
+        if (error) {
+            res.status(500).send("Error al obtener las asignaciones");
+            return;
+        }
+        res.status(200).json(result);
+    });
+});
+
+
+// Insertar una nueva asignación
+app.post("/asignaciones", (req, res) => {
+    const { id_maquina, id_proyecto } = req.body;
+
+    // Validar que los datos existan
+    if (!id_maquina || !id_proyecto) {
+        res.status(400).send("Faltan datos para la asignación");
+        return;
+    }
+
+    const query = `INSERT INTO AsignacionesMaquinas (id_maquina, id_proyecto) VALUES (?, ?)`;
+
+    db.query(query, [id_maquina, id_proyecto], (error, result) => {
+        if (error) {
+            res.status(500).send("Error al insertar la asignación");
+            return;
+        }
+        res.status(201).send("Asignación creada correctamente");
+    });
+});
+
+// Eliminar una asignación específica
+app.delete("/asignaciones/:id_maquina/:id_proyecto", (req, res) => {
+    const { id_maquina, id_proyecto } = req.params;
+
+    const query = `DELETE FROM AsignacionesMaquinas WHERE id_maquina = ? AND id_proyecto = ?`;
+
+    db.query(query, [id_maquina, id_proyecto], (error, result) => {
+        if (error) {
+            res.status(500).send("Error al eliminar la asignación");
+            return;
+        }
+        if (result.affectedRows === 0) {
+            res.status(404).send("No existe la asignación que desea eliminar");
+            return;
+        }
+        res.status(200).send("Asignación eliminada correctamente");
+    });
+});
+
+// Obtener asignaciones específicas por máquina o proyecto
+app.get("/asignaciones/:filter/:id", (req, res) => {
+    const { filter, id } = req.params;
+
+    let query;
+    if (filter === "maquina") {
+        query = `SELECT * FROM AsignacionesMaquinas WHERE id_maquina = ?`;
+    } else if (filter === "proyecto") {
+        query = `SELECT * FROM AsignacionesMaquinas WHERE id_proyecto = ?`;
+    } else {
+        res.status(400).send("Filtro inválido (use 'maquina' o 'proyecto')");
+        return;
+    }
+
+    db.query(query, [id], (error, result) => {
+        if (error) {
+            res.status(500).send("Error al obtener las asignaciones");
+            return;
+        }
+        res.status(200).json(result);
+    });
+});
+

@@ -12,9 +12,11 @@ class HeaderBar extends HTMLElement {
           }
         </style>
         <header>
+        <a href="/Proyecto/index.html">
           <h1>Sistema de Producción</h1>
-          <h2>Proyecto Avance</h2>
-        </header>
+          <h2>Proyecto Programacion Integrativa</h2>
+        </a>
+      </header>
       `;
     }
   }
