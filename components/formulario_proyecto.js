@@ -1,8 +1,8 @@
 class ProjectForm extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.innerHTML = `
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.innerHTML = `
             <style>
         body {
           font-family: 'Arial', sans-serif;
@@ -69,6 +69,20 @@ class ProjectForm extends HTMLElement {
             padding: 0.7em;
           }
         }
+          @media (max-width: 768px) {
+          form {
+            padding: 10px;
+          }
+          input, button {
+            padding: 8px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          button {
+            width: 100%;
+          }
+        }
       </style>
       <form>
         <label for="nombre">Nombre del Proyecto:</label>
@@ -83,22 +97,21 @@ class ProjectForm extends HTMLElement {
         <button type="submit">Registrar Proyecto</button>
       </form>
       `;
-  
-      this.shadowRoot.querySelector('form').addEventListener('submit', this.handleSubmit);
-    }
-  
-    handleSubmit = async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
-      // await fetch('/api/projects', {
-        await fetch('http://localhost:8000/proyectos/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      alert('Proyecto registrado con éxito');
-    };
+
+    this.shadowRoot.querySelector('form').addEventListener('submit', this.handleSubmit);
   }
-  customElements.define('project-form', ProjectForm);
-  
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    // await fetch('/api/projects', {
+    await fetch('http://localhost:8000/proyectos/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    alert('Proyecto registrado con éxito');
+  };
+}
+customElements.define('project-form', ProjectForm);

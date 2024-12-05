@@ -13,6 +13,20 @@ class FooterBar extends HTMLElement {
             bottom: 0;
             width: 100%;
           }
+
+          @media (max-width: 768px) {
+            footer {
+              font-size: 0.9rem;
+              padding: 0.8em;
+            }
+          }
+
+          @media (max-width: 480px) {
+            footer {
+              font-size: 0.8rem;
+              padding: 0.5em;
+            }
+          }
         </style>
         <footer>
           <p>© 2024 Sistema de Producción</p>

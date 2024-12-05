@@ -42,6 +42,24 @@ class MiInicio extends HTMLElement {
                 font-size: 1.2rem;
                 margin-top: 10px;
             }
+
+            @media (max-width: 768px) {
+                h1 {
+                font-size: 2rem;
+                }
+                p {
+                font-size: 1rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                h1 {
+                font-size: 1.5rem;
+                }
+                p {
+                font-size: 0.9rem;
+                }
+            }
         `;
 
         // Añadir elementos al Shadow DOM
