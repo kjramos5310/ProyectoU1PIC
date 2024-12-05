@@ -11,7 +11,6 @@ Este proyecto es una implementación de un sistema de gestión de proyectos util
 - **Lista de Máquinas**: Muestra las máquinas disponibles para los proyectos.
 - **Lista de Proyectos**: Permite ver los proyectos registrados.
 - **Navegación Responsiva**: Barra de navegación que se ajusta según el tamaño de la pantalla.
-- **Footer Responsivo**: Pie de página que se adapta a todos los tamaños de dispositivos.
 
 ## Tecnologías Usadas
 
@@ -20,3 +19,4 @@ Este proyecto es una implementación de un sistema de gestión de proyectos util
 - **JavaScript**: Para crear componentes interactivos y dinámicos usando Web Components.
 - **Web Components**: Creación de componentes reutilizables e independientes para la interfaz de usuario.
 
+## Autor: K Jesus Ramos ---- PIC nrc: 3822
